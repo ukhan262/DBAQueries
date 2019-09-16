@@ -2,6 +2,11 @@
 	This query is a modification of the query on this link
 	https://social.msdn.microsoft.com/Forums/sqlserver/en-US/002475a9-0556-4722-af38-d17ab6972cbe/details-of-reports-scheduled-on-ssrs-report-name-userdetails-frequency-etc?forum=sqlreportingservices
 */
+IF EXISTS (
+		  SELECT 1 FROM sys.objects WHERE name LIKE '%ReportSubscriptionCheck%' AND type = 'P'
+		  )
+	DROP PROCEDURE ReportSubscriptionCheck;
+GO
 
 CREATE PROCEDURE ReportSubscriptionCheck(
 										@EmailAddress NVARCHAR (MAX)
@@ -60,5 +65,4 @@ AS
 
 	END;
 
-	--EXEC dbo.ReportSubscriptionCheck @EmailAddress = N'' -- nvarchar(max)
-	
+--EXEC dbo.ReportSubscriptionCheck @EmailAddress = N'' -- nvarchar(max)
